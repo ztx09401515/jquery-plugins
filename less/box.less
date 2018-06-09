@@ -1,0 +1,25 @@
+.bkgr(@_width;@_height){
+	width:@_width;
+	height:@_height;
+	background-size:@_width @_height;
+	background-repeat:no-repeat;
+};
+.divider{
+	width:100%;
+	height:0;
+	border:1px solid #EFEFEF;
+}
+
+.clearfix(){
+	&:after{
+		display: block;
+		visibility: hidden;
+		content:'';
+		clear:both;
+	}
+}
+
+.standardScreenBox(@width){
+	width:@width;
+	height:@width/16*9;
+}

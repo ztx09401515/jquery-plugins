@@ -1,0 +1,37 @@
+@import url(./variable.less);
+@import url(./css3.less);
+@baseURL:'http://localhost:30001';
+  @font-face {
+    font-family: commonIcon;
+    src: url('@{baseURL}/fonts/common/icomoon.woff');
+  }
+  .icoIconFont{
+    font-family: commonIcon;
+  }
+  .clearfix{
+    &:after{
+      display: block;
+      visibility: hidden;
+      content:'';
+      clear:both;
+    }
+  }
+
+  .horizontalCenter{
+    position:absolute;
+    left:50%;
+    .pre(transform;translateX(-50%));
+  }
+
+  .fixedCenter{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translateY(-50%) translateX(-50%);
+  }
+  .errorBox{
+    color:red;
+
+  }
+
+

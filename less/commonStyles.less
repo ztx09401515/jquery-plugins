@@ -1,0 +1,47 @@
+@import url(variable.less);
+@import url(css3.less);
+.commonBtn(){
+  border:1px solid @noslectedColor;
+  color:black;
+  border-radius: 5px;
+  &:hover{
+    background-color: @selectedColor;
+    color:white;
+
+  }
+}
+.commonBtnActive(){
+  background-color: @selectedColor;
+  color:white;
+}
+.commonTag(){
+  color:black;
+
+  &:hover{
+    color:@selectedColor;
+  }
+  &.active{
+    color:@selectedColor;
+  }
+}
+
+
+.title1(){
+  font-size: 30px;
+  font-weight: bolder;
+}
+.title2(){
+  font-size: 25px;
+  font-weight: bolder;
+}
+.title3(){
+  font-size: 20px;
+  font-weight: bolder;
+}
+.roundBackGoundImage(@diameter){
+  width:@diameter;
+  height:@diameter;
+  .pre(background-size;cover);
+  border:1px;
+  border-radius: 50%;
+}

@@ -1,0 +1,40 @@
+@import "compass/css3";
+@import "sasslib/util.scss";
+@import "sasslib/image.scss";
+@import "sasslib/font.scss";
+@import "sasslib/posutil.scss";
+
+.jtCarouselBoard{
+	overflow:hidden;
+	.jtCarouselUl{
+		padding:0px;
+	.jtCarouselItem{
+		list-style-type:none;
+	float:left;
+	overflow:hidden;
+
+	}
+}
+.jtCarouselSmUl{
+	position:absolute;
+	left:80%;
+	top:90%;
+	cursor:pointer;
+	.jtCarouselSmHandler{
+		float:left;
+		margin:0px 3px;
+		list-style-type:none;
+		border-radius: 50%;
+		width:10px;
+		height:10px;
+		background-color: white;
+		&:hover{
+			background-color: #5ABEFF;
+		}
+
+	}
+	.jtCarouselSmHandler.active{
+		background-color: gray;
+	}
+}
+}

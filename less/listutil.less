@@ -1,0 +1,18 @@
+.function{
+  .add-list-head(@value,@vlist){
+    return:@value,@vlist;
+  }
+  .add-list-heads(@value,@vlist,@count) when(@count>0){
+    return:add-list-heads(@value,cat(@value,@vlist),@count - 1);
+  }
+  .add-list-heads(@value,@vlist,@count) when(@count<=0){
+    return:@vlist;
+  }
+  .polisthead(@vlist,@size) {
+    @nlist:add-list-heads(extract(@vlist,1),@vlist,@size - length(@vlist));
+    return:@nlist;
+  }
+  .list-extract(@vlist,@index){
+  return:extract(@vlist,@index);
+}
+}

@@ -6,7 +6,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     entry: {
         jtCarousel:__dirname+"/demo/jtCarousel/entry.js",
-
+        jtForm:__dirname+"/demo/jtForm/entry.js",
+        jtFileDragger:__dirname+"/demo/jt-file-dragger/entry.js",
     },
     resolve:{
         alias:{

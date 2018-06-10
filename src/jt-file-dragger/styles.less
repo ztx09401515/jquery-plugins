@@ -1,0 +1,52 @@
+@import url(../../less/dep.less);
+.dep-all();
+
+.dragOver(){
+  border: 1px dashed #4d8fff;
+}
+.uploadBtn{
+.commonBtn();
+  margin:5px 0px;
+}
+.upLoadCoverDragBox {
+  background-color: #f9f9f9;
+  border: 1px dashed #efefef;
+  display: table;
+  width: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+  .dragContent {
+    width: 100%;
+    height: 300px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    .uploadIcon{
+      color:#4d8fff;
+    }
+  }
+  &.upLoadDragOver{
+    .dragOver();
+    background-color: #c2c2c2;
+    border-width: 2px;
+  }
+  &:hover {
+    .dragOver();
+    color:#4d8fff;
+    .uploadIcon{
+      color:#4d8fff;
+    }
+  }
+}
+.uploadFileList{
+  font-size: 12px;
+  .fileItem{
+    .deleteBtn{
+      cursor:pointer;
+      float:right;
+      &:hover{
+        color: #2b8aeb;
+      }
+    }
+  }
+}

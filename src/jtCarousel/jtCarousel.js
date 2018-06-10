@@ -148,7 +148,7 @@ exports.default = JtCarousel;
 
 _defineProperty(JtCarousel, "defaultProps", {
   moveDuration: 300,
-  stayTime: 1000
+  stayTime: 1500
 });
 
 var JtCarousel_ = function JtCarousel_(container, board, options) {

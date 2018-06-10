@@ -1,13 +1,25 @@
 @import url(variable.less);
 @import url(css3.less);
-.commonBtn(){
-  border:1px solid @noslectedColor;
-  color:black;
+.commonBtn(@btnColor:@selectedColor){
+  border:1px solid @btnColor;
+  color: @btnColor;
+  background-color: white;
   border-radius: 5px;
+  cursor:pointer;
   &:hover{
-    background-color: @selectedColor;
+    background-color: @btnColor;
     color:white;
-
+  }
+}
+.commonInput(@inputColor:@selectedColor){
+  border:1px solid @noslectedColor;
+  border-radius: 3px;
+  &:hover{
+    border-color: @inputColor;
+  }
+  &:focus{
+    border-color: @inputColor;
+    .pre(box-shadow;0px 0px 3px 0px @inputColor outset);
   }
 }
 .commonBtnActive(){

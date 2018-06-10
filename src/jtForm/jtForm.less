@@ -1,0 +1,111 @@
+@import url(../../less/dep.less);
+
+.dep-all();
+@jtFormPrefix: jtForm;
+
+.@{jtFormPrefix}Board {
+  margin: 0px 0px;
+  padding: 0px 0px;
+  .@{jtFormPrefix}Row {
+    padding: 0px;
+    .@{jtFormPrefix}Item {
+      display:inline-block;
+      padding: 0px 0px 16px 0px;
+      .@{jtFormPrefix}LabelWrap {
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        & > .labelContent {
+          margin-right: 5px;
+          position: relative;
+          font-size: 14px;
+          height: 1em;
+          &.required {
+            &:before {
+              display: inline-block;
+              font-family: SimSun;
+              font-size: 16px;
+              color: red;
+              margin-right: 4px;
+              line-height: 1;
+              content: '*';
+
+            }
+          }
+
+        }
+      }
+      .@{jtFormPrefix}FieldWrap {
+        position:relative;
+
+        display: inline-block;
+        box-sizing: border-box;
+        >input{
+          .commonInput();
+        }
+        .@{jtFormPrefix}Field {
+          display: inline-block;
+          width: 100%;
+          &:hover{
+            .pre(box-shadow;0px 0px 2px 0px @selectedColor);
+          }
+
+        }
+        .fieldCheck{
+          color: #00d800;
+          position:absolute;
+          right:-20px;
+          font-size: 14px;
+          top:0px;
+          display: none;
+        }
+        .errorMessage{
+          position:absolute;
+          top:100%;
+          color:red;
+          font-size: 10px;
+          display: none;
+        }
+        &.correct{
+          .errorMessage{
+            display:none;
+          }
+          .fieldCheck{
+           display: inline-block;
+          }
+        }
+        &.error{
+          .fieldCheck{
+            display: inline-block;
+            color: red;
+            &:before{
+              content:'\f06a';
+            }
+          }
+          .errorMessage{
+            display: inline-block;
+          }
+          .@{jtFormPrefix}Field {
+            border:1px solid red;
+            &:focus{
+              border:1px solid red;
+              outline-color: red;
+              .pre(box-shadow;0px 0px 2px 0px red);
+            }
+
+          }
+        }
+      }
+    }
+
+  }
+  .submitBtnRow{
+    width:100%;
+    .submitBtn{
+      .commonBtn();
+      display:block;
+      margin:0px auto;
+    }
+  }
+}

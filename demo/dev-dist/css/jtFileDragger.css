@@ -1,0 +1,73 @@
+.divider {
+  width: 100%;
+  height: 0;
+  border: 1px solid #EFEFEF;
+}
+body {
+  font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+* {
+  font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+ul {
+  list-style: none;
+  padding: 0 0;
+}
+/* stylelint-disable no-duplicate-selectors */
+/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
+/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
+.uploadBtn {
+  border: 1px solid #1890ff;
+  color: #1890ff;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px 0px;
+}
+.uploadBtn:hover {
+  background-color: #1890ff;
+  color: white;
+}
+.upLoadCoverDragBox {
+  background-color: #f9f9f9;
+  border: 1px dashed #efefef;
+  display: table;
+  width: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.upLoadCoverDragBox .dragContent {
+  width: 100%;
+  height: 300px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.upLoadCoverDragBox .dragContent .uploadIcon {
+  color: #4d8fff;
+}
+.upLoadCoverDragBox.upLoadDragOver {
+  border: 1px dashed #4d8fff;
+  background-color: #c2c2c2;
+  border-width: 2px;
+}
+.upLoadCoverDragBox:hover {
+  border: 1px dashed #4d8fff;
+  color: #4d8fff;
+}
+.upLoadCoverDragBox:hover .uploadIcon {
+  color: #4d8fff;
+}
+.uploadFileList {
+  font-size: 12px;
+}
+.uploadFileList .fileItem .deleteBtn {
+  cursor: pointer;
+  float: right;
+}
+.uploadFileList .fileItem .deleteBtn:hover {
+  color: #2b8aeb;
+}
+
+
+/*# sourceMappingURL=jtFileDragger.css.map*/

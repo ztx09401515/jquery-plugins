@@ -8,6 +8,8 @@ module.exports = {
         jtCarousel:__dirname+"/demo/jtCarousel/entry.js",
         jtForm:__dirname+"/demo/jtForm/entry.js",
         jtFileDragger:__dirname+"/demo/jt-file-dragger/entry.js",
+        fileDraster:__dirname+"/demo/jt-file-dragger/draster.js",
+        "draster-image-preview":__dirname+"/demo/cropper/draster-image-preview.js",
     },
     resolve:{
         alias:{

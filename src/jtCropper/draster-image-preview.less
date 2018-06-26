@@ -1,0 +1,37 @@
+@import url(../../less/dep.less);
+
+.dep-all();
+
+.jtCropperBoard {
+width:100%;
+  .drasterLevel{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    .drasterBoard{
+    width:100%;
+  }
+  .previewDrasterBoard{
+    width:49%;
+  }
+  .jtCropperImageContainer {
+    width: 49%;
+    >img{
+      width:100%;
+      object-fit: contain;
+    }
+
+  }
+
+  }
+  .submitContainer {
+    .submitBtn {
+      display: block;
+      cursor: pointer;
+      .commonBtn();
+
+      margin: 5px auto;
+
+    }
+  }
+}

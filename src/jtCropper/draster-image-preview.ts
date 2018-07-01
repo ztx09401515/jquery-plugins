@@ -24,12 +24,12 @@ class JtCropper extends Component {
     height = 100;
     drasterLevel=null;
     submitImage() {
-        var base64str = $(this.imageEl).cropper('getCroppedCanvas').toDataURL('image/jpeg')
-        this.handleChange(base64str);
+        // var base64str = $(this.imageEl).cropper('getCroppedCanvas').toDataURL('image/jpeg')
+        this.handleChange(this.file);
     }
 
     handleChange(base64str) {
-        this.props.onChange ? this.props.onChange(base64str) : null;
+        this.props.onChange ? this.props.onChange.apply(this,[base64str]) : null;
     }
 
     constructor(props: CropperProps) {
@@ -50,11 +50,13 @@ class JtCropper extends Component {
                     $(this.imageEl).attr('src', getFileURL(files));
                     this.width = this.imageEl.width;
                     this.height = this.imageEl.height;
+                    this.submitImage();
                 } else {
                     $(this.imageEl).attr('src', getFileURL(files));
                     this.width = this.imageEl.width;
                     this.height = this.imageEl.height;
                     this.$cropperContainer.show();
+
                     $board.appendLink('<div></div>').addClass(styles.submitContainer).appendLink('<button>确认</button>')
                         .addClass(styles.submitBtn)
                         .on('click', (e) => {
@@ -63,6 +65,7 @@ class JtCropper extends Component {
                         })
                     this.dragger[0].setClassName(styles.previewDrasterBoard);
                     this.init = true;
+                    this.submitImage();
                 }
               
             },
@@ -77,7 +80,7 @@ class JtCropper extends Component {
 
 }
 
-$.fn.jtCropper = function (options: any) {
+$.fn.drasterPreview = function (options: any) {
     this.each(function (index, el) {
         new JtCropper({container: el, ...options});
     })

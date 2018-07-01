@@ -2,9 +2,10 @@
 class Component {
     props:any = {};
     state = {};
-
+    container:HTMLElement;
     constructor(props) {
         this.props = this.constructor.defaultProps?{...this.constructor.defaultProps,...props}:props;
+        this.container=this.props.container;
     }
     mergeClassName(...classNames){
         var re=''

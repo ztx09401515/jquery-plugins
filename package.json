@@ -19,7 +19,9 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack-dev": "webpack --config webpack.config.js"
+    "webpack-dev": "webpack --config webpack.config.js",
+    "webpack-current": "webpack --config webpack.current.js",
+    "webpack-package": "webpack --config webpack.package.js"
   },
   "author": "",
   "license": "MIT",

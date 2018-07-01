@@ -46,9 +46,11 @@ class FileDraster extends Component {
         })
 
     }
-    setClassName(clazz){
-        $(this.board).attr('class',clazz)
+
+    setClassName(clazz) {
+        $(this.board).attr('class', clazz)
     }
+
     removeFile(file) {
         if (this.props.multi) {
             var stateFiles = this.state.files;
@@ -84,7 +86,7 @@ class FileDraster extends Component {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i]
                 if (!stateFiles.find((stateFile) => {
-                        return stateFile.name === file.name
+                        return stateFile.lastModified===file.lastModified
                     })) {
                     stateFiles.push(file);
                 }
@@ -95,7 +97,7 @@ class FileDraster extends Component {
             multiCallback ? multiCallback() : null;
         } else {
             var stateFile = this.state.files[0];
-            if (!stateFile || stateFile.name !== files[0].name) {
+            if (!stateFile || (stateFile.lastModified && stateFile.lastModified !== files[0].lastModified)) {
                 stateFile = files[0];
             }
             this.state.files = [stateFile]
@@ -105,9 +107,9 @@ class FileDraster extends Component {
         }
     }
 
-    addFiles(files:Array) {
-        var accept=this.props.accept;
-        if(accept) {
+    addFiles(files: Array) {
+        var accept = this.props.accept;
+        if (accept) {
             var pat = new RegExp(accept.replace('/', '\\/'))
             var allow = true;
             for (var file of files) {
@@ -125,44 +127,47 @@ class FileDraster extends Component {
             this.rerangeList();
         })
     }
-    showDragArea(){
+
+    showDragArea() {
         this.$btn.hide();
         this.$dragArea.show();
     }
-    hideDragArea(){
+
+    hideDragArea() {
         this.$btn.show();
         this.$dragArea.hide();
     }
+
     constructor(props: FileDrasterProps) {
         super(props);
         this.board = document.createElement('div');
         $(props.container).append(this.board);
         var $board = $(this.board), props = this.props;
-        $board.addClass(this.mergeClassName(props.className))
+        $board.addClass(this.mergeClassName(styles.drasterBoard,props.className))
         if (props.style)
             $board.css(props.style);
-        this.$input = $board.appendLink('<input type="file" hidden/>')
+        this.$input = $board.appendLink('<input type="file" hidden/>').addClass(styles.DrasterInput)
             .attr('accept', props.accept).attr('multiple', this.props.multi)
             .change((e) => {
                 var files = e.target.files;
                 this.addFiles(files);
 
             });
-            this.$dragArea = $board.appendLink('<div></div>').addClass(styles.upLoadCoverDragBox)
-                // .on('click',()=>{
-                //     this.$input.click()
-                // })
-                .attr('tabindex','-1')
-                .on('paste',(e)=>{
-                    var clipboardData=e.originalEvent.clipboardData
-                    console.log(clipboardData);
-                    var items=clipboardData.items;
-                    var files=clipboardData.files;
-                    if(files&&files.length>0){
-                        this.addFiles(files)
-                    }
-                })
-                .on('dragenter', (e) => {
+        this.$dragArea = $board.appendLink('<div></div>').addClass(styles.upLoadCoverDragBox)
+        // .on('click',()=>{
+        //     this.$input.click()
+        // })
+            .attr('tabindex', '-1')
+            .on('paste', (e) => {
+                var clipboardData = e.originalEvent.clipboardData
+                console.log(clipboardData);
+                var items = clipboardData.items;
+                var files = clipboardData.files;
+                if (files && files.length > 0) {
+                    this.addFiles(files)
+                }
+            })
+            .on('dragenter', (e) => {
                 e.originalEvent.preventDefault()
             }).on('dragover', (e) => {
                 e.originalEvent.preventDefault();
@@ -177,19 +182,19 @@ class FileDraster extends Component {
                 var files = e.originalEvent.dataTransfer.files
                 this.addFiles(files)
             });
-            var $dragContent = this.$dragArea.appendLink('<div></div>').addClass(styles.dragContent);
-            $dragContent.appendLink('<p></p>').addClass(this.mergeClassName('fas fa-upload', styles.uploadIcon));
-            $dragContent.appendLink('<p></p>').text(this.props.text);
-            $dragContent.appendLink('<p></p>').text('拖动到此处或点击');
-            this.$btn = $board.appendLink('<button></button>').addClass(styles.uploadBtn).text(this.props.text).click(() => {
-                this.$input.click();
-                return false;
-            })
-            if(this.props.dragArea){
-                this.$btn.hide();
-            }else{
-                this.$dragArea.hide();
-            }
+        var $dragContent = this.$dragArea.appendLink('<div></div>').addClass(styles.dragContent);
+        $dragContent.appendLink('<p></p>').addClass(this.mergeClassName('fas fa-upload', styles.uploadIcon));
+        $dragContent.appendLink('<p></p>').text(this.props.text);
+        $dragContent.appendLink('<p></p>').text('拖动到此处或点击后ctrl+v');
+        this.$btn = $board.appendLink('<button></button>').addClass(styles.uploadBtn).text(this.props.text).click(() => {
+            this.$input.click();
+            return false;
+        })
+        if (this.props.dragArea) {
+            this.$btn.hide();
+        } else {
+            this.$dragArea.hide();
+        }
         if (this.props.displayList) {
             this.$list = $board.appendLink('<div></div>').addClass(styles.uploadFileList);
         }
@@ -199,9 +204,9 @@ class FileDraster extends Component {
 }
 
 $.fn.fileDraster = function (options: any) {
-    var re=[];
+    var re = [];
     this.each(function (index, el) {
-        var dragger=new FileDraster({container: el, ...options});
+        var dragger = new FileDraster({container: el, ...options});
         re.push(dragger)
     })
     return re;

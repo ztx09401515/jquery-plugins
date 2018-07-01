@@ -9,8 +9,10 @@
     .commonInput();
     position: relative;
     display: inline-block;
-    height:26px;
+    height:30px;
+    padding:4px;
     width:100%;
+    box-sizing: border-box;
     vertical-align: middle;
   }
   .preSearchList {
@@ -25,10 +27,17 @@
     min-height: 100px;
     background-color: white;
     color: black;
+    z-index:1;
     &Item {
       cursor: pointer;
       user-select: none;
+      width:100%;
+      border-bottom:1px solid #efefef;
       &:hover{
+        background-color: #2b8aeb;
+        color:white;
+      }
+      &Active{
         background-color: #2b8aeb;
         color:white;
       }

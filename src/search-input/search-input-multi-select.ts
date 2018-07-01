@@ -40,17 +40,19 @@ class SearchInputMultiSelect extends SearchInput {
     }
 
     handlePreSearchSelect(value){
-        var current=$(this.input).val(),re=null;
+        var current=$(this.input).val(),re=null,joinChar=this.props.joinChar;
         if(current){
             var hasSame=false;
-            var vs=current.split(',');
+            var vs=current.split(joinChar);
             vs.forEach((v)=>{
                 if(v===value){
                     hasSame=true;
                 }
             })
-            if(!hasSame)
-            re=current+','+value;
+            if(!hasSame) {
+                vs[vs.length-1]=value;
+                re = vs.join(joinChar)
+            }
             else
                 re=current;
         }else{

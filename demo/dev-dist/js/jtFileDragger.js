@@ -169,10 +169,7 @@ function () {
 
     _defineProperty(this, "state", {});
 
-    _defineProperty(this, "container", void 0);
-
     this.props = this.constructor.defaultProps ? _objectSpread({}, this.constructor.defaultProps, props) : props;
-    this.container = this.props.container;
   }
 
   _createClass(Component, [{

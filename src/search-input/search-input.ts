@@ -35,7 +35,9 @@ class SearchInput extends Component {
     preSearchKeyGet(value){
         return value;
     }
-
+    currentIndex:number=null;
+    psArray:string[]=null;
+    show:boolean=false;
     showPreSearchArray(){
         var props=this.props,value=this.input.value,thisComp=this;
         if(props.preSearchSupplier){
@@ -44,8 +46,10 @@ class SearchInput extends Component {
                 return;
             }
            var psArray= props.preSearchSupplier.apply(this,[psKey]);
+            this.psArray=psArray;
             var $list=$(this.list);
             $list.show().children().remove();
+            this.show=true;
             psArray.forEach((ps,index)=>{
                 $list.appendLink('<li></li>').addClass(styles.preSearchListItem).text(ps)
                     .on('click',function(e){
@@ -63,9 +67,46 @@ class SearchInput extends Component {
         }
         this.disActive();
     }
-
+    activePreSearchSelect(tarIndex:number){
+        var $list=$(this.list);
+        $list.children().removeClass(styles.preSearchListItemActive);
+        $list.children().each(function(index,el){
+            if(tarIndex===index){
+                $(this).addClass(styles.preSearchListItemActive);
+            }
+        })
+    };
+    selectPreSearchSelect(tarIndex:number){
+        var $list=$(this.list),thisComp=this;
+        $list.children().each(function(index,el){
+            if(tarIndex===index){
+                thisComp.handlePreSearchSelect($(this).text())
+            }
+        })
+    }
     disActive(){
         $(this.list).hide();
+        this.show=false;
+    }
+
+    nextIndex(dif:number){
+        var currentIndex=this.currentIndex;
+        var next;
+        if(currentIndex===null){
+            if(dif<0){
+                next=this.psArray.length-1;
+            }else{
+                next=0;
+            }
+        }else{
+            next=currentIndex+dif;
+        }
+        this.currentIndex=next;
+        this.currentIndex=this.currentIndex>this.psArray.length-1?0:this.currentIndex;
+        this.currentIndex=this.currentIndex<0?0:this.psArray.length-1;
+
+        this.activePreSearchSelect( this.currentIndex);
+
     }
 
     constructor(props: SearchInputProps) {
@@ -86,7 +127,23 @@ class SearchInput extends Component {
         var $input=$(this.input).addClass(styles.searchInputEl);
         $input.on('input',(e)=>{
             this.handleInputChange(e);
-        });
+        })
+            .on('keydown',(e)=>{
+                var keyCode=e.keyCode;
+                if(!this.show){
+                    return;
+                }
+                if(keyCode===40){
+                    e.preventDefault();
+                    this.nextIndex(1);
+                }else if(keyCode===38){
+                    e.preventDefault();
+                    this.nextIndex(-1);
+                }else if(keyCode===13){
+                    e.preventDefault();
+                    this.selectPreSearchSelect(this.currentIndex);
+                }
+            });
         this.list=$board.appendLink('<ul></ul>').addClass(styles.preSearchList).hide()[0];
 
     }

@@ -32,10 +32,18 @@ class SearchInput extends Component {
         }
     }
 
+    preSearchKeyGet(value){
+        return value;
+    }
+
     showPreSearchArray(){
         var props=this.props,value=this.input.value,thisComp=this;
         if(props.preSearchSupplier){
-           var psArray= props.preSearchSupplier.apply(this,[value]);
+            var psKey=this.preSearchKeyGet(value);
+            if(psKey===null){
+                return;
+            }
+           var psArray= props.preSearchSupplier.apply(this,[psKey]);
             var $list=$(this.list);
             $list.show().children().remove();
             psArray.forEach((ps,index)=>{

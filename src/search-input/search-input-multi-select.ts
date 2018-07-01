@@ -12,13 +12,35 @@ interface SearchInputMultiSelectProps extends SearchInputProps {
 class SearchInputMultiSelect extends SearchInput {
 
     static defaultProps={
-        preSearchCount:2,
+        preSearchCount:1,
         joinChar:','
     };
 
+    lastValue=''
+    handleInputChange(e){
+        var props=this.props,value=e.target.value;
+
+        if(this.props.onChange){
+            this.props.onChange.apply(this,[value])
+        }
+        if(value.length>=props.preSearchCount){
+            this.showPreSearchArray();
+        }
+        this.lastValue=value;
+    }
+    preSearchKeyGet(value){
+        var props=this.props, qianBan=value.substr(0,this.lastValue.length);
+        if(this.lastValue.length>value.length||qianBan===this.lastValue){
+          var vs=value.split(props.joinChar);
+         var key= vs[vs.length-1]
+            return key;
+        }else{
+            return null;
+        }
+    }
+
     handlePreSearchSelect(value){
         var current=$(this.input).val(),re=null;
-
         if(current){
             var hasSame=false;
             var vs=current.split(',');

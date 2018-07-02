@@ -8,6 +8,7 @@ module.exports=Object.assign({},baseConfig,{entry:{
     "draster-image-preview":__dirname+"/src/jtCropper/draster-image-preview.ts",
     "search-input":__dirname+"/src/search-input/search-input.ts",
     "search-input-multi-select":__dirname+"/src/search-input/search-input-multi-select.ts",
+    "search-multi-select":__dirname+"/src/search-multi-select/search-multi-select.ts",
 },
     output:{
         path:__dirname+'/lib/' ,

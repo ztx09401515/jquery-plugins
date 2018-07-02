@@ -1,0 +1,115 @@
+@import url(../../less/dep.less);
+
+.dep-all();
+
+@msSelectCol:#2b8aeb;
+.searchMultiSelectBoard{
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .msSearchInput{
+    width:30%;
+    flex-shrink: 1;
+  }
+  .msSelect{
+    height:30px;
+    box-sizing: border-box;
+    .commonSelect();
+    position:relative;
+    width:30%;
+    flex-shrink: 1;
+    cursor:pointer;
+    text-align: center;
+    vertical-align: middle;
+    padding:4px;
+    font-weight: normal;
+    &:hover {
+      border-color: @msSelectCol;
+      .msSelectDownArrow{
+        color:@msSelectCol;
+
+      }
+    }
+    .msSelectDownArrow{
+      position:absolute;
+      right:0px;
+      top:50%;
+      transform:translateY(-50%);
+      vertical-align: middle;
+      width:26px;
+
+
+    }
+    .msSelectList{
+      .commonUl();
+      position:absolute;
+      background-color: white;
+      border:1px solid black;
+      color:black;
+      width:100%;
+      left:0px;
+      top:100%;
+      .msItem{
+
+      cursor:pointer;
+        border-bottom: 1px solid #efefef;
+        &:hover{
+          color:white;
+          background-color: #2181eb;
+        }
+
+        .msTick{
+            display: none;
+           margin-left: 10px;
+
+        }
+        &.active{
+          .msTick{
+            display: inline;
+            width:16px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+  }
+  .msResultBox{
+    width:30%;
+    flex-shrink: 1;
+    background-color: #efefef;
+    border:1px dashed #c8c8c8;
+    display: block;
+      flex-direction: row;
+      flex-wrap: wrap;
+    .resultItem{
+      @borderColor:#6b6b6b;
+      display: inline-block;
+      width:90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background-color: #e6e6e6;
+      color:black;
+      border:1px solid @borderColor;
+      border-radius: 2px;
+      font-size: 16px;
+      position:relative;
+      margin:0px 5px 5px 0px;
+      .resultContent{
+
+      }
+      .cross{
+        border-left: 1px solid @borderColor;
+        width:16px;
+        position:absolute;
+        right:0px;
+        top:50%;
+        text-align: center;
+        cursor:pointer;
+        transform:translateY(-50%);
+      }
+    }
+  }
+}

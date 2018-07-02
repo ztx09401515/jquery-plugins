@@ -1,59 +1,83 @@
 @import url(variable.less);
 @import url(css3.less);
-.commonBtn(@btnColor:@selectedColor){
-  border:1px solid @btnColor;
+
+.commonBtn(@btnColor:@selectedColor) {
+  border: 1px solid @btnColor;
   color: @btnColor;
   background-color: white;
   border-radius: 5px;
-  cursor:pointer;
-  &:hover{
+  cursor: pointer;
+  &:hover {
     background-color: @btnColor;
-    color:white;
+    color: white;
   }
 }
-.commonInput(@inputColor:@selectedColor){
-  border:1px solid @noslectedColor;
+
+.commonUl() {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.commonSelect(@selectColor:@selectedColor) {
+  border: 1px solid @noslectedColor;
   border-radius: 3px;
-  &:hover{
-    border-color: @inputColor;
+  &:hover {
+    border-color: @selectColor;
   }
-  &:focus{
-    border-color: @inputColor;
-    .pre(box-shadow;0px 0px 5px 0px @inputColor);
+  &:focus {
+    border-color: @selectColor;
+    .pre(box-shadow; 0px 0px 4px 0px @selectColor);
   }
 }
-.commonBtnActive(){
+
+.commonInput(@inputColor:@selectedColor) {
+  border: 1px solid @noslectedColor;
+  border-radius: 3px;
+  &:hover {
+    border-color: @inputColor;
+  }
+  &:focus {
+    border-color: @inputColor;
+    .pre(box-shadow; 0px 0px 5px 0px @inputColor);
+  }
+}
+
+.commonBtnActive() {
   background-color: @selectedColor;
-  color:white;
-}
-.commonTag(){
-  color:black;
-
-  &:hover{
-    color:@selectedColor;
-  }
-  &.active{
-    color:@selectedColor;
-  }
+  color: white;
 }
 
+.commonTag() {
+  color: black;
 
-.title1(){
+  &:hover {
+    color: @selectedColor;
+  }
+  &.active {
+    color: @selectedColor;
+  }
+}
+
+.title1() {
   font-size: 30px;
   font-weight: bolder;
 }
-.title2(){
+
+.title2() {
   font-size: 25px;
   font-weight: bolder;
 }
-.title3(){
+
+.title3() {
   font-size: 20px;
   font-weight: bolder;
 }
-.roundBackGoundImage(@diameter){
-  width:@diameter;
-  height:@diameter;
-  .pre(background-size;cover);
-  border:1px;
+
+.roundBackGoundImage(@diameter) {
+  width: @diameter;
+  height: @diameter;
+  .pre(background-size; cover);
+  border: 1px;
   border-radius: 50%;
 }

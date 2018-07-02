@@ -151,8 +151,11 @@ class SearchInput extends Component {
 }
 
 $.fn.searchInput = function (options: SearchInputProps) {
+    var sis=[];
     this.each(function (index, el) {
-        new SearchInput({container: el, ...options});
-    })
+        var si=new SearchInput({container: el, ...options});
+        sis.push(si)
+    });
+    return sis;
 }
 export default SearchInput;

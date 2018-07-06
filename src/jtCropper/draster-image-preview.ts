@@ -8,7 +8,9 @@ import 'cropperjs/dist/cropper.css'
 
 interface CropperProps extends CommonProps {
     cropperOptions: any,
-    onChange: (base64str: string) => void
+    onChange: (base64str: string) => void,
+    preview?:boolean,
+    submitBtn?:boolean,
 }
 
 class JtCropper extends Component {
@@ -23,6 +25,10 @@ class JtCropper extends Component {
     width = 100;
     height = 100;
     drasterLevel=null;
+    static defaultProps={
+        preview:false,
+        submitBtn:false,
+    }
     submitImage() {
         // var base64str = $(this.imageEl).cropper('getCroppedCanvas').toDataURL('image/jpeg')
         this.handleChange(this.file);
@@ -35,6 +41,7 @@ class JtCropper extends Component {
     constructor(props: CropperProps) {
         super(props);
         this.board = document.createElement('div');
+        this.container=props.container;
         $(props.container).append(this.board);
         var $board = $(this.board);
         $board.addClass(this.mergeClassName(styles.jtCropperBoard, props.className));
@@ -48,22 +55,22 @@ class JtCropper extends Component {
                 this.file = files;
                 if (this.init) {
                     $(this.imageEl).attr('src', getFileURL(files));
-                    this.width = this.imageEl.width;
-                    this.height = this.imageEl.height;
+
                     this.submitImage();
                 } else {
                     $(this.imageEl).attr('src', getFileURL(files));
-                    this.width = this.imageEl.width;
-                    this.height = this.imageEl.height;
-                    this.$cropperContainer.show();
-
-                    $board.appendLink('<div></div>').addClass(styles.submitContainer).appendLink('<button>确认</button>')
-                        .addClass(styles.submitBtn)
-                        .on('click', (e) => {
-                            this.submitImage();
-                            return false;
-                        })
-                    this.dragger[0].setClassName(styles.previewDrasterBoard);
+                    if(this.props.submitBtn) {
+                        $board.appendLink('<div></div>').addClass(styles.submitContainer).appendLink('<button>确认</button>')
+                            .addClass(styles.submitBtn)
+                            .on('click', (e) => {
+                                this.submitImage();
+                                return false;
+                            })
+                    }
+                    if(this.props.preview) {
+                        this.$cropperContainer.show();
+                        this.dragger[0].setClassName(styles.previewDrasterBoard);
+                    }
                     this.init = true;
                     this.submitImage();
                 }
@@ -71,8 +78,10 @@ class JtCropper extends Component {
             },
             accept:'image/*',
         });
-        this.$cropperContainer = $drasterLevel.appendLink('<div></div>').addClass(styles.jtCropperImageContainer).hide();
-        this.imageEl = this.$cropperContainer.appendLink('<img/>')[0];
+        if(this.props.preview) {
+            this.$cropperContainer = $drasterLevel.appendLink('<div></div>').addClass(styles.jtCropperImageContainer).hide();
+            this.imageEl = this.$cropperContainer.appendLink('<img/>')[0];
+        }
 
 
 

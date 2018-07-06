@@ -8,6 +8,9 @@ export declare interface SearchInputProps extends CommonProps {
     preSearchCount:number,
     onChange: (value: string) => void,
     preSearchSupplier:(value:string)=>string[],
+    placeholder:string,
+    inputName:string,
+    inputId:string,
 }
 
 class SearchInput extends Component {
@@ -15,6 +18,7 @@ class SearchInput extends Component {
 
     static defaultProps={
         preSearchCount:2,
+        placeholder:'',
     }
 
     handleChange(base64str) {
@@ -124,7 +128,13 @@ class SearchInput extends Component {
         if (props.style)
             $board.css(props.style);
         this.input=$board.appendLink('<input/>')[0];
-        var $input=$(this.input).addClass(styles.searchInputEl);
+        if(this.props.inputName){
+            $(this.input).attr('name',this.props.inputName);
+        }
+        if(this.props.inputId){
+            $(this.input).attr('id',this.props.inputId);
+        }
+        var $input=$(this.input).addClass(styles.searchInputEl).attr('placeholder',this.props.placeholder);
         $input.on('input',(e)=>{
             this.handleInputChange(e);
         })

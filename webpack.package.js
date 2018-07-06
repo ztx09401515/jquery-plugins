@@ -7,7 +7,8 @@ module.exports=Object.assign({},baseConfig,{entry:{
     fileDraster:__dirname+"/src/jt-file-dragger/file-draster.ts",
     "draster-image-preview":__dirname+"/src/jtCropper/draster-image-preview.ts",
     "search-input":__dirname+"/src/search-input/search-input.ts",
-    "search-input-multi-select":__dirname+"/src/search-input/search-input-multi-select.ts",
+    "modal":__dirname+"/src/modal/modal.js",
+    "modalConfirm":__dirname+"/src/modal/modalConfirm.js",
     "search-multi-select":__dirname+"/src/search-multi-select/search-multi-select.ts",
 },
     output:{

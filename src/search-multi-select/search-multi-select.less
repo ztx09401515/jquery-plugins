@@ -2,72 +2,90 @@
 
 .dep-all();
 
-@msSelectCol:#2b8aeb;
-.searchMultiSelectBoard{
-  width:100%;
-  display:flex;
+@msSelectCol: #2b8aeb;
+.searchMultiSelectBoard {
+  width: 100%;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .msSearchInput{
-    width:30%;
+
+  .msSearchInput {
+    width: 30%;
     flex-shrink: 1;
   }
-  .msSelect{
-    height:30px;
+  .msSelect {
+
+    height: 30px;
     box-sizing: border-box;
     .commonSelect();
-    position:relative;
-    width:30%;
+    position: relative;
+    width: 30%;
     flex-shrink: 1;
-    cursor:pointer;
-    text-align: center;
-    vertical-align: middle;
-    padding:4px;
+    cursor: pointer;
+
     font-weight: normal;
+    .selectLabel {
+      display: block;
+      margin-right: 16px;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      > span {
+        vertical-align: middle;
+      }
+    }
     &:hover {
       border-color: @msSelectCol;
-      .msSelectDownArrow{
-        color:@msSelectCol;
+      .msSelectDownArrow {
+        color: @msSelectCol;
 
       }
     }
-    .msSelectDownArrow{
-      position:absolute;
-      right:0px;
-      top:50%;
-      transform:translateY(-50%);
+    .msSelectDownArrow {
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
       vertical-align: middle;
-      width:26px;
-
-
+      width: 16px;
     }
-    .msSelectList{
+    .msSelectList {
       .commonUl();
-      position:absolute;
+      position: absolute;
       background-color: white;
-      border:1px solid black;
-      color:black;
-      width:100%;
-      left:0px;
-      top:100%;
-      .msItem{
-
-      cursor:pointer;
+      border: 1px solid black;
+      color: black;
+      height:200px;
+      overflow-y: scroll;
+      width: auto;
+      min-width: 100px;
+      right: 0px;
+      top: 100%;
+      z-index: 2;
+      .msItem {
+        word-wrap: normal;
+        white-space: nowrap;
+        line-height: normal;
+        height:auto;
+        float: none;
+        cursor: pointer;
         border-bottom: 1px solid #efefef;
-        &:hover{
-          color:white;
+        padding:6px 8px;
+        margin:0px 2px 2px 0px;
+        &:hover {
+          color: white;
           background-color: #2181eb;
         }
 
-        .msTick{
-            display: none;
-           margin-left: 10px;
+        .msTick {
+          display: none;
+          margin-left: 10px;
 
         }
-        &.active{
-          .msTick{
+        &.active {
+          .msTick {
             display: inline;
-            width:16px;
+            width: 16px;
             font-weight: bold;
           }
         }
@@ -75,40 +93,67 @@
     }
 
   }
-  .msResultBox{
-    width:30%;
+  .msResultBox {
+    width: 70px;
     flex-shrink: 1;
     background-color: #efefef;
-    border:1px dashed #c8c8c8;
+    border: 1px dashed #c8c8c8;
     display: block;
-      flex-direction: row;
-      flex-wrap: wrap;
-    .resultItem{
-      @borderColor:#6b6b6b;
-      display: inline-block;
-      width:90px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      background-color: #e6e6e6;
-      color:black;
-      border:1px solid @borderColor;
-      border-radius: 2px;
-      font-size: 16px;
-      position:relative;
-      margin:0px 5px 5px 0px;
-      .resultContent{
-
-      }
-      .cross{
-        border-left: 1px solid @borderColor;
-        width:16px;
-        position:absolute;
-        right:0px;
-        top:50%;
-        text-align: center;
-        cursor:pointer;
-        transform:translateY(-50%);
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    &:hover{
+      border-color: @msSelectCol;
+      color:@msSelectCol;
+    }
+    .msResultBoard {
+      padding: 10px;
+      box-shadow: 2px 2px 5px 0px #ababab;
+      top: 100%;
+      border-radius: 5px;
+      background-color: #efefef;
+      border: 1px solid #c8c8c8;
+      width: 300px;
+      min-height: 150px;
+      position: absolute;
+      left: 0px;
+      z-index: 2;
+      background-color: white;
+      .resultItem {
+        @borderColor: #6b6b6b;
+        display: inline-block;
+        width: 280px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        background-color: #e6e6e6;
+        color: black;
+        border: 1px solid @borderColor;
+        border-radius: 2px;
+        font-size: 14px;
+        position: relative;
+        margin: 0px 5px 5px 0px;
+        .resultContent {
+          display: block;
+          margin-right: 16px;
+          padding-right:2px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          line-height: normal;
+        }
+        .cross {
+          border-left: 1px solid @borderColor;
+          width: 16px;
+          position: absolute;
+          right: 0px;
+          top: 50%;
+          text-align: center;
+          cursor: pointer;
+          transform: translateY(-50%);
+        }
       }
     }
   }

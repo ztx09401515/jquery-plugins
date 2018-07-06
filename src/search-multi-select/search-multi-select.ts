@@ -15,7 +15,7 @@ interface selectItemModel {
 export declare interface SearchMultiSelectProps extends CommonProps {
     searchInputProps: SearchInputProps,
     preSearchCount: number,
-    onChange: (value: number[]) => void,
+    onChange: (value: selectItemModel[]) => void,
     preSearchSupplier: (value: string) => selectItemModel[],
 }
 
@@ -30,6 +30,7 @@ class SearchMultiSelect extends Component {
     select: HTMLDivElement = null;
     selectlist: HTMLUListElement = null;
     resultBox: HTMLDivElement = null;
+    resultBoard:HTMLDivElement=null;
     data: {
         key: string,
         ps: selectItemModel[],
@@ -48,11 +49,16 @@ class SearchMultiSelect extends Component {
         }
     }
 
-    refreshResult() {
-        var $result = $(this.resultBox);
+    refreshResult(show=true) {
+        var $result = $(this.resultBoard);
         $result.children().remove();
         this.data.result.forEach((r) => {
-            var $item = $result.appendLink('<div></div>').addClass(styles.resultItem).attr('title', r.text).attr('data-value', r.value);
+            var $item = $result.appendLink('<div></div>')
+                .on('mousemove',(e)=>{
+                    this.showResult();
+                    e.originalEvent.resultBoxOver=true;
+                })
+                .addClass(styles.resultItem).attr('title', r.text).attr('data-value', r.value);
             $item.appendLink('<span></span>').text(r.text).addClass(styles.resultContent);
             $item.appendLink('<div></div>')
                 .on('click', (e) => {
@@ -65,7 +71,8 @@ class SearchMultiSelect extends Component {
                 })
                 .addClass(this.mergeClassName('fas fa-times', styles.cross));
         });
-        this.refreshSelect();
+        this.refreshSelect(show);
+        this.props.onChange?this.props.onChange.apply(this,[this.data.result]):null
     }
 
     getResultIndex(value, findCallback?: any) {
@@ -78,10 +85,25 @@ class SearchMultiSelect extends Component {
         })
         return tarIndex;
     }
+    clearResult(show=true){
+        this.data.result=[];
+        this.refreshResult(show);
+    }
+    setPreSearch(ps,show){
+        this.data.ps=ps;
+        this.refreshSelect(show);
+    }
 
-    refreshSelect() {
+    setResult(result){
+        this.data.result=result;
+        this.refreshResult(false);
+    }
+
+    refreshSelect(show=true) {
         var props = this.props, $selectlist = $(this.selectlist);
-        $selectlist.show();
+        if(show) {
+            $selectlist.show();
+        }
         $selectlist.children().remove();
 
         this.data.ps.forEach((p, index) => {
@@ -116,50 +138,92 @@ class SearchMultiSelect extends Component {
     disActive(){
         $(this.selectlist).hide();
     }
-
+    showResult(){
+        $(this.resultBoard).show()
+    }
+    hideResult(){
+        $(this.resultBoard).hide()
+    }
     constructor(props: SearchMultiSelectProps) {
         super(props);
         $(document).click((e)=>{
             var target=e.target;
-            var find=$(this.select).hasDescendant(target,(temp,t)=>{
-                var tV=$(t).attr('data-value');
-                var tempV= $(temp).attr('data-value')
-                return tempV!==undefined&&tV!==undefined&&tempV===tV
-            });
+            // var find=$(this.select).hasDescendant(target,(temp,t)=>{
+            //     var tV=$(t).attr('data-value');
+            //     var tempV= $(temp).attr('data-value')
+            //     return (tempV&&tV&&tempV===tV)||temp==t||$
+            // });
 
-            if(target!==this.select&&!find){
+            if(target!==this.select&&!e.originalEvent.searchMultiSelectClick){
                 this.disActive();
             }
         })
+            .on('mousemove',(e)=>{
+                var target=e.target;
+                // var findbox=$.contains(this.resultBox,target);
+                // var findboard=$.contains(this.resultBoard,target);
+                // console.log(target);
+                if(target!==this.resultBox&&!e.originalEvent.resultBoxOver){
+                    // console.log('hideresult')
+                    this.hideResult();
+                }
+            });
         this.board = document.createElement('div');
         $(props.container).append(this.board);
         var $board = $(this.board);
-        $board.addClass(this.mergeClassName(styles.searchMultiSelectBoard, props.className));
+        $board.addClass(this.mergeClassName(styles.searchMultiSelectBoard, props.className))
+            .on('click',(e)=>{
+                e.originalEvent.searchMultiSelectClick=true;
+            });
         if (props.style)
             $board.css(props.style);
         this.searchInput = $board.searchInput({
+            placeholder:'线路搜索',
             className: styles.msSearchInput,
             onChange: (value) => {
                 this.data.key = value;
                 this.search();
             },
         })[0];
-        this.select = $board.appendLink('<div></div>').text('--请选择--')
+        this.select = $board.appendLink('<div></div>')
             .on('click', (e) => {
                 $(this.selectlist).show();
+                e.originalEvent.searchMultiSelectClick=true;
             })
             .addClass(styles.msSelect)[0];
+        $(this.select).appendLink('<span></span>').addClass(styles.selectLabel).appendLink('<span></span>').text('--请选择--');
         $(this.select).appendLink('<div></div>').addClass(this.mergeClassName('fas fa-angle-down', styles.msSelectDownArrow));
-        this.selectlist = $(this.select).appendLink('<ul></ul>').addClass(styles.msSelectList).hide()[0]
-        this.resultBox = $board.appendLink('<div></div>').addClass(styles.msResultBox)[0];
 
+        this.selectlist = $(this.select).appendLink('<ul></ul>')
+            .on('click',(e)=>{
+                e.originalEvent.searchMultiSelectClick=true;
+            })
+            .addClass(styles.msSelectList).hide()[0]
+        this.resultBox = $board.appendLink('<div></div>').text('结果显示')
+            .on('mousemove',(e)=>{
+                e.originalEvent.resultBoxOver=true;
+                this.showResult();
+            })
+            .on('click',(e)=>{
+                e.originalEvent.searchMultiSelectClick=true;
+            })
+            .addClass(styles.msResultBox)[0];
+        this.resultBoard=$(this.resultBox)
+            .on('mousemove',(e)=>{
+                this.showResult();
+                e.originalEvent.resultBoxOver=true;
+            })
+            .appendLink('<div></div>').addClass(styles.msResultBoard).hide()[0];
     }
 
 }
 
 $.fn.searchMultiSelect = function (options: SearchMultiSelectProps) {
+    var sms=[];
     this.each(function (index, el) {
-        new SearchMultiSelect({container: el, ...options});
-    })
+       var sm= new SearchMultiSelect({container: el, ...options});
+       sms.push(sm)
+    });
+    return sms;
 }
 export default SearchMultiSelect;

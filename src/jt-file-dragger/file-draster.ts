@@ -146,7 +146,7 @@ class FileDraster extends Component {
         $board.addClass(this.mergeClassName(styles.drasterBoard,props.className))
         if (props.style)
             $board.css(props.style);
-        this.$input = $board.appendLink('<input type="file" hidden/>').addClass(styles.DrasterInput)
+        this.$input = $board.appendLink('<input type="file" hidden/>').addClass(styles.drasterInput)
             .attr('accept', props.accept).attr('multiple', this.props.multi)
             .change((e) => {
                 var files = e.target.files;

@@ -62,11 +62,11 @@ ul {
 }
 .jtFormBoard .jtFormRow .jtFormItem .jtFormFieldWrap > input:focus {
   border-color: #1890ff;
-  -webkit-box-shadow: 0px 0px 3px 0px #1890ff outset;
-  -moz-box-shadow: 0px 0px 3px 0px #1890ff outset;
-  -ms-box-shadow: 0px 0px 3px 0px #1890ff outset;
-  -o-box-shadow: 0px 0px 3px 0px #1890ff outset;
-  box-shadow: 0px 0px 3px 0px #1890ff outset;
+  -webkit-box-shadow: 0px 0px 5px 0px #1890ff;
+  -moz-box-shadow: 0px 0px 5px 0px #1890ff;
+  -ms-box-shadow: 0px 0px 5px 0px #1890ff;
+  -o-box-shadow: 0px 0px 5px 0px #1890ff;
+  box-shadow: 0px 0px 5px 0px #1890ff;
 }
 .jtFormBoard .jtFormRow .jtFormItem .jtFormFieldWrap .jtFormField {
   display: inline-block;
